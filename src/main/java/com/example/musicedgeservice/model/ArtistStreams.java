@@ -4,6 +4,11 @@ public class ArtistStreams {
     private int artistId;
     private int numberStreams;
 
+    public ArtistStreams(int artistId, int numberStreams) {
+        this.artistId = artistId;
+        this.numberStreams = numberStreams;
+    }
+
     public int getArtistId() {
         return artistId;
     }
