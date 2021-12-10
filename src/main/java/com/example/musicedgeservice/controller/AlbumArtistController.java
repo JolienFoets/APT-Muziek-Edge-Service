@@ -54,6 +54,32 @@ public class AlbumArtistController {
         return returnList;
     }
 
+    //get 2
+    @GetMapping("/streams/artist/name/{name}")
+    public List<AlbumArtist> getStreamsByName(@PathVariable String name){
+
+        List<AlbumArtist> returnList= new ArrayList();
+
+        ResponseEntity<List<Artist>> responseEntityArtists =
+                restTemplate.exchange("http://" + artistServiceBaseUrl + "/artists/name/{name}",
+                        HttpMethod.GET, null, new ParameterizedTypeReference<List<Artist>>() {
+                        }, name);
+
+        List<Artist> artists = responseEntityArtists.getBody();
+
+        for (Artist artist:
+                artists) {
+            ResponseEntity<List<Album>> responseEntityAlbums =
+                    restTemplate.exchange("http://" + albumServiceBaseUrl + "/reviews/{artistId}",
+                            HttpMethod.GET, null, new ParameterizedTypeReference<List<Album>>() {
+                            }, artist.getArtistId());
+
+            returnList.add(new AlbumArtist(artist,responseEntityAlbums.getBody()));
+        }
+
+        return returnList;
+    }
+
 
 
 
