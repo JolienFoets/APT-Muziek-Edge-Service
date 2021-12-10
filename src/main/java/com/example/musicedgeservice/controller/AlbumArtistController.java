@@ -5,6 +5,9 @@ import com.example.musicedgeservice.model.AlbumArtist;
 import com.example.musicedgeservice.model.Artist;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -20,6 +23,10 @@ public class AlbumArtistController {
     @Value("${artistservice.baseurl}")
     private String artistServiceBaseUrl;
     //@GetMapping
+
+
+
+    //post
     @PostMapping("/streams")
     public AlbumArtist addStream(@RequestParam int artistId, @RequestParam Integer numberstreams){
 
@@ -33,7 +40,28 @@ public class AlbumArtistController {
 
         return new AlbumArtist(artist, album);
     }
+
     //@PutMapping
+    @PutMapping("/streams")
+    public AlbumArtist updateStream(@RequestParam int artistId, @RequestParam Integer numberstreams){
+
+        Album album =
+                restTemplate.getForObject("http://" + albumServiceBaseUrl + "/streams/" + "/album/" + artistId,
+                        Album.class);
+        album.setNumberStreams(numberstreams);
+
+        ResponseEntity<Album> responseEntityAlbum =
+                restTemplate.exchange("http://" + albumServiceBaseUrl + "/ablums",
+                        HttpMethod.PUT, new HttpEntity<>(album), Album.class);
+
+        Album retrievedAlbum = responseEntityAlbum.getBody();
+
+        Artist artist =
+                restTemplate.getForObject("http://" + artistServiceBaseUrl + "/artists/{artistId}",
+                        Artist.class,artistId);
+
+        return new AlbumArtist(artist, retrievedAlbum);
+    }
     //@DeleteMapping
 
 
