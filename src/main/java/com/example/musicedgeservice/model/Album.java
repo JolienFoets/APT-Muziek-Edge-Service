@@ -4,6 +4,7 @@ public class Album {
     private int id;
 
     private int albumId;
+    private int artistId;
 
     private String mbid;
     private String title;
@@ -14,11 +15,17 @@ public class Album {
     public Album() {
     }
 
-    public Album(int id, int albumId, String mbid, String title, int numberStreams) {
+    public Album(int id, int albumId, int artistId, String mbid, String title, int numberStreams) {
         this.id = id;
         this.albumId = albumId;
+        this.artistId = artistId;
         this.mbid = mbid;
         this.title = title;
+        this.numberStreams = numberStreams;
+    }
+
+    public Album(int artistId, int numberStreams) {
+        this.artistId = artistId;
         this.numberStreams = numberStreams;
     }
 
@@ -33,6 +40,14 @@ public class Album {
     public int getAlbumId() { return albumId; }
 
     public void setAlbumId(int albumId) { this.albumId = albumId; }
+
+    public int getArtistId() {
+        return artistId;
+    }
+
+    public void setArtistId(int artistId) {
+        this.artistId = artistId;
+    }
 
     public String getMbid() {
         return mbid;

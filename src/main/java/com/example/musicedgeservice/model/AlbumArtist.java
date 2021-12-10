@@ -22,6 +22,14 @@ public class AlbumArtist {
         setArtistStreams(artistStreams);
     }
 
+    public AlbumArtist(Artist artist, Album album) {
+        setArtistName(artist.getName());
+        setArtistMbid(artist.getartistMBID());
+        artistStreams = new ArrayList<>();
+        artistStreams.add(new ArtistStreams(album.getAlbumId(), album.getNumberStreams()));
+        setArtistStreams(artistStreams);
+    }
+
     public String getArtistName() {
         return artistName;
     }
