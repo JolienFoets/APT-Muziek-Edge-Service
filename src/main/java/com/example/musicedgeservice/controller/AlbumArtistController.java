@@ -5,11 +5,15 @@ import com.example.musicedgeservice.model.AlbumArtist;
 import com.example.musicedgeservice.model.Artist;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class AlbumArtistController {
@@ -22,7 +26,34 @@ public class AlbumArtistController {
 
     @Value("${artistservice.baseurl}")
     private String artistServiceBaseUrl;
+
     //@GetMapping
+
+    //get 1
+    @GetMapping("/streams")
+    public List<AlbumArtist> getStreams(){
+
+        List<AlbumArtist> returnList= new ArrayList();
+
+        ResponseEntity<List<Album>> responseEntityAlbums =
+                restTemplate.exchange("http://" + albumServiceBaseUrl + "/albums",
+                        HttpMethod.GET, null, new ParameterizedTypeReference<List<Album>>() {
+                        });
+
+        List<Album> albums = responseEntityAlbums.getBody();
+
+        for (Album album:
+                albums) {
+            Artist artist =
+                    restTemplate.getForObject("http://" + artistServiceBaseUrl + "/artists/{artistId}",
+                            Artist.class, album.getArtistId());
+
+            returnList.add(new AlbumArtist(artist, album));
+        }
+
+        return returnList;
+    }
+
 
 
 
