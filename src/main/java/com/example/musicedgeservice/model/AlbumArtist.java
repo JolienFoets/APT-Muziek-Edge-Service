@@ -5,6 +5,9 @@ import java.util.List;
 
 public class AlbumArtist {
     //Info van BRITT
+    private String albumTitle;
+    private String mbid;
+
     private List<ArtistStreams> artistStreams;
 
     public AlbumArtist(Album album, List<Artist> artists) {
