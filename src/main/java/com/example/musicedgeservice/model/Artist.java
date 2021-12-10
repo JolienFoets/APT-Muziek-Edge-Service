@@ -5,7 +5,7 @@ public class Artist {
     private int artistId;
     private String name;
     private String artistMBID;
-    private int numberStreams;
+    //private int numberStreams;
 
     public Artist() {
     }
@@ -42,11 +42,12 @@ public class Artist {
         this.artistMBID = artistMBID;
     }
 
-    public int getNumberStreams() {
+    /*public int getNumberStreams() {
         return numberStreams;
     }
 
     public void setNumberStreams(int numberStreams) {
         this.numberStreams = numberStreams;
     }
+    */
 }

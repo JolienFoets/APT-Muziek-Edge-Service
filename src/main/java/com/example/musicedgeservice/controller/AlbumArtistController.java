@@ -29,7 +29,7 @@ public class AlbumArtistController {
 
     //@GetMapping
 
-    //get 1
+    //get 1: get all streams
     @GetMapping("/streams")
     public List<AlbumArtist> getStreams(){
 
@@ -54,7 +54,7 @@ public class AlbumArtistController {
         return returnList;
     }
 
-    //get 2
+    //get 2: get streams by artist name
     @GetMapping("/streams/artist/name/{name}")
     public List<AlbumArtist> getStreamsByName(@PathVariable String name){
 
@@ -80,7 +80,7 @@ public class AlbumArtistController {
         return returnList;
     }
 
-    //get 3
+    //get 3: get streams by artist Id
     @GetMapping("/streams/artist/{artistId}")
     public AlbumArtist getStreamsByArtistId(@PathVariable int artistId){
 
@@ -96,6 +96,20 @@ public class AlbumArtistController {
         return new AlbumArtist(artist,responseEntityAlbums.getBody());
     }
 
+    //get 4: get streams by artist Mbid
+    @GetMapping("/streams/artist/{artistMbid}")
+    public AlbumArtist getStreamsArtistMBID(@PathVariable String artistMbid){
+
+        Artist artist =
+                restTemplate.getForObject("http://" + artistServiceBaseUrl + "/artists/{artistMbid}",
+                        Artist.class, artistMbid);
+
+        Album album =
+                restTemplate.getForObject("http://" + albumServiceBaseUrl + "/albums/" + "artist/" + artistMbid, //OF +artist.getId()
+                        Album.class);
+
+        return new AlbumArtist(artist, album);
+    }
 
 
 
