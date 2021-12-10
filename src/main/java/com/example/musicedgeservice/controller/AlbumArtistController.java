@@ -80,6 +80,23 @@ public class AlbumArtistController {
         return returnList;
     }
 
+    //get 3
+    @GetMapping("/streams/artist/{artistId}")
+    public AlbumArtist getStreamsByArtistId(@PathVariable int artistId){
+
+        Artist artist =
+                restTemplate.getForObject("http://" + artistServiceBaseUrl + "/artists/{artistId}",
+                        Artist.class, artistId);
+
+        ResponseEntity<List<Album>> responseEntityAlbums =
+                restTemplate.exchange("http://" + albumServiceBaseUrl + "/albums/{artistId}",
+                        HttpMethod.GET, null, new ParameterizedTypeReference<List<Album>>() {
+                        }, artistId);
+
+        return new AlbumArtist(artist,responseEntityAlbums.getBody());
+    }
+
+
 
 
 
