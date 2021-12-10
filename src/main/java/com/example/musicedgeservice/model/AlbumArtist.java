@@ -9,6 +9,9 @@ public class AlbumArtist {
 
     public AlbumArtist(Album album, List<Artist> artists) {
         //Info van BRITT
+        setAlbumTitle(album.getTitle());
+        setMbid(album.getMbid());
+
         artistStreams = new ArrayList<>();
         artists.forEach(artist -> {
             artistStreams.add(new ArtistStreams(artist.getArtistId(), artist.getNumberStreams()));
