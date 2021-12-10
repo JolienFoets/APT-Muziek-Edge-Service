@@ -7,17 +7,20 @@ public class Album {
 
     private String mbid;
     private String title;
-/*
+
+    private int numberStreams;
+
+
     public Album() {
     }
 
-    public Album(int id, int albumId, String mbid, String title) {
+    public Album(int id, int albumId, String mbid, String title, int numberStreams) {
         this.id = id;
         this.albumId = albumId;
         this.mbid = mbid;
         this.title = title;
+        this.numberStreams = numberStreams;
     }
-*/
 
     public int getId() {
         return id;
@@ -45,5 +48,13 @@ public class Album {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public int getNumberStreams() {
+        return numberStreams;
+    }
+
+    public void setNumberStreams(int numberStreams) {
+        this.numberStreams = numberStreams;
     }
 }

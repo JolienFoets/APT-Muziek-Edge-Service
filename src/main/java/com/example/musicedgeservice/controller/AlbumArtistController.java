@@ -19,7 +19,6 @@ public class AlbumArtistController {
     private String albumServiceBaseUrl;
 
     //@GetMapping
-    public AlbumArtist get
     //@PostMapping
     //@PutMapping
     //@DeleteMapping
