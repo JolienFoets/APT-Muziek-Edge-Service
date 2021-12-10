@@ -27,9 +27,9 @@ public class AlbumArtistController {
     @Value("${artistservice.baseurl}")
     private String artistServiceBaseUrl;
 
-    //@GetMapping
+    //Get
 
-    //get 1: get all streams
+    //Get 1: get all streams
     @GetMapping("/streams")
     public List<AlbumArtist> getStreams(){
 
@@ -54,7 +54,7 @@ public class AlbumArtistController {
         return returnList;
     }
 
-    //get 2: get streams by artist name
+    //Get 2: get streams by artist name
     @GetMapping("/streams/artist/name/{name}")
     public List<AlbumArtist> getStreamsByName(@PathVariable String name){
 
@@ -80,7 +80,7 @@ public class AlbumArtistController {
         return returnList;
     }
 
-    //get 3: get streams by artist Id
+    //Get 3: get streams by artist Id
     @GetMapping("/streams/artist/{artistId}")
     public AlbumArtist getStreamsByArtistId(@PathVariable int artistId){
 
@@ -96,7 +96,7 @@ public class AlbumArtistController {
         return new AlbumArtist(artist,responseEntityAlbums.getBody());
     }
 
-    //get 4: get streams by artist Mbid
+    //Get 4: get streams by artist Mbid
     @GetMapping("/streams/artist/{artistMbid}")
     public AlbumArtist getStreamsArtistMBID(@PathVariable String artistMbid){
 
@@ -114,7 +114,7 @@ public class AlbumArtistController {
 
 
 
-    //post
+    //Post
     @PostMapping("/streams")
     public AlbumArtist addStream(@RequestParam int artistId, @RequestParam Integer numberstreams){
 
@@ -129,7 +129,7 @@ public class AlbumArtistController {
         return new AlbumArtist(artist, album);
     }
 
-    //@PutMapping
+    //Put
     @PutMapping("/streams")
     public AlbumArtist updateStream(@RequestParam int artistId, @RequestParam Integer numberstreams){
 
@@ -150,7 +150,7 @@ public class AlbumArtistController {
 
         return new AlbumArtist(artist, retrievedAlbum);
     }
-    //@DeleteMapping
+    //Delete
     @DeleteMapping("/streams/artist/{artistId}")
     public ResponseEntity deleteStreams(@PathVariable int artistId){
 
@@ -158,8 +158,6 @@ public class AlbumArtistController {
 
         return ResponseEntity.ok().build();
     }
-
-
 
 
 }
