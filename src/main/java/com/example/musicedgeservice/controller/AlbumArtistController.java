@@ -63,6 +63,13 @@ public class AlbumArtistController {
         return new AlbumArtist(artist, retrievedAlbum);
     }
     //@DeleteMapping
+    @DeleteMapping("/streams/artist/{artistId}")
+    public ResponseEntity deleteStreams(@PathVariable int artistId){
+
+        restTemplate.delete("http://" + albumServiceBaseUrl + "/albums/" + "/artist/" + artistId);
+
+        return ResponseEntity.ok().build();
+    }
 
 
 
