@@ -10,6 +10,13 @@ public class Artist {
     public Artist() {
     }
 
+    public Artist(String id, int artistId, String name, String artistMBID) {
+        this.id = id;
+        this.artistId = artistId;
+        this.name = name;
+        this.artistMBID = artistMBID;
+    }
+
     public String getId() {
         return id;
     }
