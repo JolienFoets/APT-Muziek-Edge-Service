@@ -36,7 +36,7 @@ public class AlbumArtistController {
         List<AlbumArtist> returnList= new ArrayList();
 
         ResponseEntity<List<Album>> responseEntityAlbums =
-                restTemplate.exchange("http://" + albumServiceBaseUrl + "/albums",
+                restTemplate.exchange("http://" + albumServiceBaseUrl + "/api/albums",
                         HttpMethod.GET, null, new ParameterizedTypeReference<List<Album>>() {
                         });
 
@@ -45,7 +45,7 @@ public class AlbumArtistController {
         for (Album album:
                 albums) {
             Artist artist =
-                    restTemplate.getForObject("http://" + artistServiceBaseUrl + "/artists/{artistId}",
+                    restTemplate.getForObject("http://" + artistServiceBaseUrl + "/api/artists/{artistId}",
                             Artist.class, album.getArtistId());
 
             returnList.add(new AlbumArtist(artist, album));
@@ -55,22 +55,22 @@ public class AlbumArtistController {
     }
 
     //Get 2: get streams by artist name
-    @GetMapping("/streams/artist/name/{name}")
-    public List<AlbumArtist> getStreamsByName(@PathVariable String name){
+   /* @GetMapping("/streams/artist/{artistId}")
+    public List<AlbumArtist> getStreamsByName(@PathVariable int artistId){
 
         List<AlbumArtist> returnList= new ArrayList();
 
         ResponseEntity<List<Artist>> responseEntityArtists =
-                restTemplate.exchange("http://" + artistServiceBaseUrl + "/artists/name/{name}",
+                restTemplate.exchange("http://" + artistServiceBaseUrl + "/artists/{artistId}",
                         HttpMethod.GET, null, new ParameterizedTypeReference<List<Artist>>() {
-                        }, name);
+                        }, artistId);
 
         List<Artist> artists = responseEntityArtists.getBody();
 
         for (Artist artist:
                 artists) {
             ResponseEntity<List<Album>> responseEntityAlbums =
-                    restTemplate.exchange("http://" + albumServiceBaseUrl + "/reviews/{artistId}",
+                    restTemplate.exchange("http://" + albumServiceBaseUrl + "/api/albums/artist/{artistId}",
                             HttpMethod.GET, null, new ParameterizedTypeReference<List<Album>>() {
                             }, artist.getArtistId());
 
@@ -78,18 +78,18 @@ public class AlbumArtistController {
         }
 
         return returnList;
-    }
+    }*/
 
     //Get 3: get streams by artist Id
     @GetMapping("/streams/artist/{artistId}")
     public AlbumArtist getStreamsByArtistId(@PathVariable int artistId){
 
         Artist artist =
-                restTemplate.getForObject("http://" + artistServiceBaseUrl + "/artists/{artistId}",
+                restTemplate.getForObject("http://" + artistServiceBaseUrl + "/api/artists/{artistId}",
                         Artist.class, artistId);
 
         ResponseEntity<List<Album>> responseEntityAlbums =
-                restTemplate.exchange("http://" + albumServiceBaseUrl + "/albums/{artistId}",
+                restTemplate.exchange("http://" + albumServiceBaseUrl + "/api/albums/{artistId}",
                         HttpMethod.GET, null, new ParameterizedTypeReference<List<Album>>() {
                         }, artistId);
 
@@ -101,16 +101,15 @@ public class AlbumArtistController {
     public AlbumArtist getStreamsArtistMBID(@PathVariable String artistMbid){
 
         Artist artist =
-                restTemplate.getForObject("http://" + artistServiceBaseUrl + "/artists/{artistMbid}",
+                restTemplate.getForObject("http://" + artistServiceBaseUrl + "/api/artists/{artistMbid}",
                         Artist.class, artistMbid);
 
         Album album =
-                restTemplate.getForObject("http://" + albumServiceBaseUrl + "/albums/" + "artist/" + artistMbid, //OF +artist.getId()
+                restTemplate.getForObject("http://" + albumServiceBaseUrl + "/api/albums/" + "artist/" + artistMbid, //OF +artist.getId()
                         Album.class);
 
         return new AlbumArtist(artist, album);
     }
-
 
 
 
@@ -123,7 +122,7 @@ public class AlbumArtistController {
                         new Album(artistId, numberstreams),Album.class);
 
         Artist artist =
-                restTemplate.getForObject("http://" + artistServiceBaseUrl + "/artists/{artistId}",
+                restTemplate.getForObject("http://" + artistServiceBaseUrl + "/api/artists/{artistId}",
                         Artist.class,artistId);
 
         return new AlbumArtist(artist, album);
@@ -139,13 +138,13 @@ public class AlbumArtistController {
         album.setNumberStreams(numberstreams);
 
         ResponseEntity<Album> responseEntityAlbum =
-                restTemplate.exchange("http://" + albumServiceBaseUrl + "/ablums",
+                restTemplate.exchange("http://" + albumServiceBaseUrl + "/api/ablums",
                         HttpMethod.PUT, new HttpEntity<>(album), Album.class);
 
         Album retrievedAlbum = responseEntityAlbum.getBody();
 
         Artist artist =
-                restTemplate.getForObject("http://" + artistServiceBaseUrl + "/artists/{artistId}",
+                restTemplate.getForObject("http://" + artistServiceBaseUrl + "/api/artists/{artistId}",
                         Artist.class,artistId);
 
         return new AlbumArtist(artist, retrievedAlbum);
@@ -154,7 +153,7 @@ public class AlbumArtistController {
     @DeleteMapping("/streams/artist/{artistId}")
     public ResponseEntity deleteStreams(@PathVariable int artistId){
 
-        restTemplate.delete("http://" + albumServiceBaseUrl + "/albums/" + "/artist/" + artistId);
+        restTemplate.delete("http://" + albumServiceBaseUrl + "/api/albums/" + "/artist/" + artistId);
 
         return ResponseEntity.ok().build();
     }
