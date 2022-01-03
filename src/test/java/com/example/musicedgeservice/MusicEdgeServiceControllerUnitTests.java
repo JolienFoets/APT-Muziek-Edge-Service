@@ -37,7 +37,7 @@ public class MusicEdgeServiceControllerUnitTests {
     @Value("${albumservice.baseurl}")
     private String albumServiceBaseUrl;
 
-    @Value("${artistinfoservice.baseurl}")
+    @Value("${artistservice.baseurl}")
     private String artistServiceBaseUrl;
 
     @Autowired
@@ -167,15 +167,6 @@ public class MusicEdgeServiceControllerUnitTests {
                         .body(mapper.writeValueAsString(allAlbums))
                 );
 
-        // GET Artist 2 info
-        mockServer.expect(ExpectedCount.once(),
-                requestTo(new URI("http://" + artistServiceBaseUrl + "/api/artists/2")))
-                .andExpect(method(HttpMethod.GET))
-                .andRespond(withStatus(HttpStatus.OK)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .body(mapper.writeValueAsString(artist2))
-                );
-
         // GET Artist 1 info
         mockServer.expect(ExpectedCount.once(),
                 requestTo(new URI("http://" + artistServiceBaseUrl + "/api/artists/1")))
@@ -185,10 +176,20 @@ public class MusicEdgeServiceControllerUnitTests {
                         .body(mapper.writeValueAsString(artist1))
                 );
 
-        mockMvc.perform(get("/streams"))
+
+        // GET Artist 2 info
+       /* mockServer.expect(ExpectedCount.once(),
+                requestTo(new URI("http://" + artistServiceBaseUrl + "/api/artists/2")))
+                .andExpect(method(HttpMethod.GET))
+                .andRespond(withStatus(HttpStatus.OK)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(mapper.writeValueAsString(artist2))
+                );*/
+
+        mockMvc.perform(get("/streams/{artistId}", 1))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(3)))
+                .andExpect(jsonPath("$", hasSize(2)))
                 .andExpect(jsonPath("$[0].artistName", is("artist1")))
                 .andExpect(jsonPath("$[0].artistMbid", is("123456789")))
                 .andExpect(jsonPath("$[0].artistStreams[0].albumId", is(21)))
@@ -197,10 +198,10 @@ public class MusicEdgeServiceControllerUnitTests {
                 .andExpect(jsonPath("$[1].artistMbid", is("123456789")))
                 .andExpect(jsonPath("$[1].artistStreams[0].albumId", is(22)))
                 .andExpect(jsonPath("$[1].artistStreams[0].numberStreams", is(26)))
-                .andExpect(jsonPath("$[1].artistName", is("artist2")))
-                .andExpect(jsonPath("$[1].artistMbid", is("987654321")))
-                .andExpect(jsonPath("$[1].artistStreams[0].albumId", is(23)))
-                .andExpect(jsonPath("$[1].artistStreams[0].numberStreams", is(38)));
+               /* .andExpect(jsonPath("$[2].artistName", is("artist2")))
+                .andExpect(jsonPath("$[2].artistMbid", is("987654321")))
+                .andExpect(jsonPath("$[2].artistStreams[0].albumId", is(23)))
+                .andExpect(jsonPath("$[2].artistStreams[0].numberStreams", is(38)))*/;
 
     }
 

@@ -29,16 +29,16 @@ public class AlbumArtistController {
 
     //Get
 
-    //Get 1: get all streams
-    @GetMapping("/streams")
-    public List<AlbumArtist> getStreams(){
+    //Get 1: get all streams of one artist
+    @GetMapping("/streams/{artistId}")
+    public List<AlbumArtist> getStreams(@PathVariable Integer artistId){
 
         List<AlbumArtist> returnList= new ArrayList();
 
         ResponseEntity<List<Album>> responseEntityAlbums =
                 restTemplate.exchange("http://" + albumServiceBaseUrl + "/api/albums",
                         HttpMethod.GET, null, new ParameterizedTypeReference<List<Album>>() {
-                        });
+                        }, artistId);
 
         List<Album> albums = responseEntityAlbums.getBody();
 
@@ -97,7 +97,7 @@ public class AlbumArtistController {
     }
 
     //Get 4: get streams by artist Mbid
-    @GetMapping("/streams/artist/{artistMbid}")
+    /*@GetMapping("/streams/artist/{artistMbid}")
     public AlbumArtist getStreamsArtistMBID(@PathVariable String artistMbid){
 
         Artist artist =
@@ -109,7 +109,7 @@ public class AlbumArtistController {
                         Album.class);
 
         return new AlbumArtist(artist, album);
-    }
+    }*/
 
 
 
