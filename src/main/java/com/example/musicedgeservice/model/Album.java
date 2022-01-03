@@ -24,9 +24,11 @@ public class Album {
         this.numberStreams = numberStreams;
     }
 
-    public Album(int artistId, int numberStreams) {
+    public Album(int artistId, int numberStreams, String title, int albumId) {
         this.artistId = artistId;
         this.numberStreams = numberStreams;
+        this.title = title;
+        this.albumId = albumId;
     }
 
     public int getId() {
