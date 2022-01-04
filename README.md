@@ -28,4 +28,18 @@ Jolien Foets|APT-Artist-Service|[GitHub Link](https://github.com/JolienFoets/APT
 
 ![Postman_get1_artists](https://github.com/JolienFoets/APT-Muziek-Edge-Service/blob/main/Screenshots/Postman_get1_artists.png)
 
+#### GET albums ####
+
+![Postman_get2_albums](https://github.com/JolienFoets/APT-Muziek-Edge-Service/blob/main/Screenshots/Postman_get2_albums.png)
+
+#### GET artist by artistId (niet DB id) ####
+
+#### GET album by albumId (niet DB id) ####
+
+#### POST ####
+
+#### PUT ####
+
+#### DELETE ####
+
 ## Implementatie SwaggerUI ##
