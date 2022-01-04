@@ -54,11 +54,36 @@ Jolien Foets|APT-Artist-Service|[GitHub Link](https://github.com/JolienFoets/APT
 
 ![Postman_delete2](https://github.com/JolienFoets/APT-Muziek-Edge-Service/blob/main/Screenshots/Postman_delete2.png)
 
-
-
-
-
-
-
-
 ## Implementatie SwaggerUI ##
+
+#### Overzicht ####
+
+![Swagger_overzicht](https://github.com/JolienFoets/APT-Muziek-Edge-Service/blob/main/Screenshots/Swagger_overzicht.png)
+
+#### GET artists ####
+
+![Swagger_getArtists](https://github.com/JolienFoets/APT-Muziek-Edge-Service/blob/main/Screenshots/Swagger_getArtists.png)
+
+#### GET artist by artistId ####
+
+![Swagger_getArtistsByArtistId](https://github.com/JolienFoets/APT-Muziek-Edge-Service/blob/main/Screenshots/Swagger_getArtistsByArtistId.png)
+
+#### GET albums ####
+
+![Swagger_getAlbums](https://github.com/JolienFoets/APT-Muziek-Edge-Service/blob/main/Screenshots/Swagger_getAlbums.png)
+
+#### GET album by albumId ####
+
+![Swagger_getAlbumsByAlbumId](https://github.com/JolienFoets/APT-Muziek-Edge-Service/blob/main/Screenshots/Swagger_getAlbumsByAlbumId.png)
+
+#### POST ####
+
+![Swagger_post](https://github.com/JolienFoets/APT-Muziek-Edge-Service/blob/main/Screenshots/Swagger_post.png)
+
+#### PUT ####
+
+![Swagger_put](https://github.com/JolienFoets/APT-Muziek-Edge-Service/blob/main/Screenshots/Swagger_put.png)
+
+#### DELETE ####
+
+![Swagger_delete](https://github.com/JolienFoets/APT-Muziek-Edge-Service/blob/main/Screenshots/Swagger_delete.png)
