@@ -24,4 +24,8 @@ Jolien Foets|APT-Artist-Service|[GitHub Link](https://github.com/JolienFoets/APT
 
 ## Werking architectuur via Postman ##
 
+#### GET artists ####
+
+![Postman_get1_artists](https://github.com/JolienFoets/APT-Muziek-Edge-Service/blob/main/Screenshots/Postman_get1_artists.png)
+
 ## Implementatie SwaggerUI ##
