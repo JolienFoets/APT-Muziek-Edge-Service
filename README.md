@@ -20,3 +20,6 @@ Jolien Foets|APT-Artist-Service|[GitHub Link](https://github.com/JolienFoets/APT
 
 ## Diagram microservices architectuur ##
 
+## Werking architectuur via Postman ##
+
+## Implementatie SwaggerUI ##
