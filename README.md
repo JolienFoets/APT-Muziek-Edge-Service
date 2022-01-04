@@ -8,8 +8,8 @@ Ons team bestaat uit:
 
 Voor dit project hebben we 2 microservices gemaakt.
 
-In de __APT-Artist-Service__.\ kan je informatie vinden over de artiesten.
-In de __APT-Album-Service__.\ kan je informatie vinden over de albums.
+In de __APT-Artist-Service__ kan je informatie vinden over de artiesten.
+In de __APT-Album-Service__ kan je informatie vinden over de albums.
 
 ### Overzicht microservices ###
 
@@ -17,3 +17,6 @@ Naam |Service|Github Repo
 -----|-------|-----------
 Britt Ooms|APT-Album-Service|[GitHub Link](https://github.com/Britt93/APT-Album-Service)
 Jolien Foets|APT-Artist-Service|[GitHub Link](https://github.com/JolienFoets/APT-Artist-Service)
+
+## Diagram microservices architectuur ##
+
