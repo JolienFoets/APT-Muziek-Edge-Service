@@ -37,7 +37,7 @@ public class MusicEdgeServiceControllerUnitTests {
     @Value("${albumservice.baseurl}")
     private String albumServiceBaseUrl;
 
-    @Value("${artistinfoservice.baseurl}")
+    @Value("${artistservice.baseurl}")
     private String artistServiceBaseUrl;
 
     @Autowired
@@ -57,6 +57,8 @@ public class MusicEdgeServiceControllerUnitTests {
     private Album album3artist2 = new Album(23, 23, 2, "654987321","album3", 38);
 
     private List<Album> allAlbums = Arrays.asList(album1artist1, album2artist1, album3artist2);
+    private List<Album> allAlbumsByArtist1 = Arrays.asList(album1artist1, album2artist1);
+
     private List<Album> allAlbumsForArtist1 = Arrays.asList(album1artist1, album2artist1);
     private List<Album> allAlbumsForArtist2 = Arrays.asList(album3artist2);
     private List<Artist> allArtists = Arrays.asList(artist1, artist2);
@@ -155,7 +157,7 @@ public class MusicEdgeServiceControllerUnitTests {
     }
 
     //get all streams
-    @Test
+   /* @Test
     public void whenGetStreams_thenReturnFilledAlbumArtistsJson() throws Exception {
 
         // GET all albums
@@ -167,15 +169,6 @@ public class MusicEdgeServiceControllerUnitTests {
                         .body(mapper.writeValueAsString(allAlbums))
                 );
 
-        // GET Artist 2 info
-        mockServer.expect(ExpectedCount.once(),
-                requestTo(new URI("http://" + artistServiceBaseUrl + "/api/artists/2")))
-                .andExpect(method(HttpMethod.GET))
-                .andRespond(withStatus(HttpStatus.OK)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .body(mapper.writeValueAsString(artist2))
-                );
-
         // GET Artist 1 info
         mockServer.expect(ExpectedCount.once(),
                 requestTo(new URI("http://" + artistServiceBaseUrl + "/api/artists/1")))
@@ -185,10 +178,20 @@ public class MusicEdgeServiceControllerUnitTests {
                         .body(mapper.writeValueAsString(artist1))
                 );
 
-        mockMvc.perform(get("/streams"))
+
+        // GET Artist 2 info
+        mockServer.expect(ExpectedCount.once(),
+                requestTo(new URI("http://" + artistServiceBaseUrl + "/api/artists/2")))
+                .andExpect(method(HttpMethod.GET))
+                .andRespond(withStatus(HttpStatus.OK)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(mapper.writeValueAsString(artist2))
+                );
+
+        mockMvc.perform(get("/streams/{artistId}", 1))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(3)))
+                .andExpect(jsonPath("$", hasSize(2)))
                 .andExpect(jsonPath("$[0].artistName", is("artist1")))
                 .andExpect(jsonPath("$[0].artistMbid", is("123456789")))
                 .andExpect(jsonPath("$[0].artistStreams[0].albumId", is(21)))
@@ -197,11 +200,119 @@ public class MusicEdgeServiceControllerUnitTests {
                 .andExpect(jsonPath("$[1].artistMbid", is("123456789")))
                 .andExpect(jsonPath("$[1].artistStreams[0].albumId", is(22)))
                 .andExpect(jsonPath("$[1].artistStreams[0].numberStreams", is(26)))
-                .andExpect(jsonPath("$[1].artistName", is("artist2")))
-                .andExpect(jsonPath("$[1].artistMbid", is("987654321")))
-                .andExpect(jsonPath("$[1].artistStreams[0].albumId", is(23)))
-                .andExpect(jsonPath("$[1].artistStreams[0].numberStreams", is(38)));
+                .andExpect(jsonPath("$[2].artistName", is("artist2")))
+                .andExpect(jsonPath("$[2].artistMbid", is("987654321")))
+                .andExpect(jsonPath("$[2].artistStreams[0].albumId", is(23)))
+                .andExpect(jsonPath("$[2].artistStreams[0].numberStreams", is(38)));
+
+    }*/
+
+    //Get1
+    @Test
+    public void whenGetStreams_thenReturnArtistsJson() throws Exception {
+        mockServer.expect(ExpectedCount.once(),
+                requestTo(new URI("http://" + artistServiceBaseUrl + "/api/artists")))
+                .andExpect(method(HttpMethod.GET))
+                .andRespond(withStatus(HttpStatus.OK)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(mapper.writeValueAsString(allArtists))
+                );
+
+        mockMvc.perform(get("/streams/artists"))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(2)))
+                .andExpect(jsonPath("$[0].name", is("artist1")))
+                .andExpect(jsonPath("$[0].artistId", is(1)))
+                .andExpect(jsonPath("$[1].name", is("artist2")))
+                .andExpect(jsonPath("$[1].artistId", is(2)));
+    }
+
+    //Get2
+    @Test
+    public void whenGetStreams_thenReturnAlbumsJson() throws Exception {
+        mockServer.expect(ExpectedCount.once(),
+                requestTo(new URI("http://" + albumServiceBaseUrl + "/api/albums")))
+                .andExpect(method(HttpMethod.GET))
+                .andRespond(withStatus(HttpStatus.OK)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(mapper.writeValueAsString(allAlbums))
+                );
+
+        mockMvc.perform(get("/streams/albums"))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(3)))
+                .andExpect(jsonPath("$[0].title", is("album1")))
+                .andExpect(jsonPath("$[0].albumId", is(21)))
+                .andExpect(jsonPath("$[0].artistId", is(1)))
+                .andExpect(jsonPath("$[0].numberStreams", is(45)))
+                .andExpect(jsonPath("$[1].title", is("album2")))
+                .andExpect(jsonPath("$[1].albumId", is(22)))
+                .andExpect(jsonPath("$[1].artistId", is(1)))
+                .andExpect(jsonPath("$[1].numberStreams", is(26)))
+                .andExpect(jsonPath("$[2].title", is("album3")))
+                .andExpect(jsonPath("$[2].albumId", is(23)))
+                .andExpect(jsonPath("$[2].artistId", is(2)))
+                .andExpect(jsonPath("$[2].numberStreams", is(38)));
+    }
+
+    //Get3
+    @Test
+    public void whenGetStreams_thenReturnAlbumsByArtistJson() throws Exception {
+        mockServer.expect(ExpectedCount.once(),
+                requestTo(new URI("http://" + albumServiceBaseUrl + "/api/albums/artist/1")))
+                .andExpect(method(HttpMethod.GET))
+                .andRespond(withStatus(HttpStatus.OK)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(mapper.writeValueAsString(allAlbumsByArtist1))
+                );
+
+        mockServer.expect(ExpectedCount.once(),
+                requestTo(new URI("http://" + artistServiceBaseUrl + "/api/artists/1")))
+                .andExpect(method(HttpMethod.GET))
+                .andRespond(withStatus(HttpStatus.OK)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(mapper.writeValueAsString(artist1))
+                );
+
+        mockMvc.perform(get("/streams/artists/{artistId}",1))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(2)))
+                .andExpect(jsonPath("$[0].name", is("artist1")))
+                .andExpect(jsonPath("$[0].artistStreams[0].albumId", is(21)))
+                .andExpect(jsonPath("$[0].artistStreams[0].numberStreams", is(45)))
+                .andExpect(jsonPath("$[1].name", is("artist1")))
+                .andExpect(jsonPath("$[1].artistStreams[0].albumId", is(22)))
+                .andExpect(jsonPath("$[1].artistStreams[0].numberStreams", is(26)));
+
+
 
     }
+
+    //Get4
+    @Test
+    public void whenGetStreams_thenReturnAlbumByAlbumIdJson() throws Exception {
+        mockServer.expect(ExpectedCount.once(),
+                requestTo(new URI("http://" + albumServiceBaseUrl + "/api/albums/1")))
+                .andExpect(method(HttpMethod.GET))
+                .andRespond(withStatus(HttpStatus.OK)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(mapper.writeValueAsString(album1artist1))
+                );
+
+        mockMvc.perform(get("/streams/albums/{albumId}",1))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.title", is("album1")))
+                .andExpect(jsonPath("$.albumId", is(21)))
+                .andExpect(jsonPath("$.artistId", is(1)))
+                .andExpect(jsonPath("$.numberStreams", is(45)));
+
+    }
+
+
+
 
 }

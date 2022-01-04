@@ -4,26 +4,26 @@ public class Artist {
     private String id;
     private int artistId;
     private String name;
-    private String artistMBID;
+    private String mbid;
     //private int numberStreams;
 
     public Artist() {
     }
 
-    public Artist(String id, int artistId, String name, String artistMBID) {
+    public Artist(String id, int artistId, String name, String mbid) {
         this.id = id;
         this.artistId = artistId;
         this.name = name;
-        this.artistMBID = artistMBID;
+        this.mbid = mbid;
     }
 
-    public String getId() {
+    /*public String getId() {
         return id;
     }
 
     public void setId(String id) {
         this.id = id;
-    }
+    }*/
 
     public int getArtistId() {
         return artistId;
@@ -41,12 +41,12 @@ public class Artist {
         this.name = name;
     }
 
-    public String getartistMBID() {
-        return artistMBID;
+    public String getmbid() {
+        return mbid;
     }
 
-    public void setartistMBID(String artistMBID) {
-        this.artistMBID = artistMBID;
+    public void setmbid(String mbid) {
+        this.mbid = mbid;
     }
 
     /*public int getNumberStreams() {

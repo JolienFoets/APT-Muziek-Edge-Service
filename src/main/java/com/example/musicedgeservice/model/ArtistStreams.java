@@ -1,24 +1,16 @@
 package com.example.musicedgeservice.model;
 
 public class ArtistStreams {
-    //private int artistId;
     private int albumId;
+    private String title;
     private int numberStreams;
 
-    public ArtistStreams(int albumId, int numberStreams) {
-        //this.artistId = artistId;
+    public ArtistStreams(int albumId, int numberStreams, String title) {
         this.albumId = albumId;
+        this.title = title;
+
         this.numberStreams = numberStreams;
     }
-
-    /*public int getArtistId() {
-        return artistId;
-    }
-
-    public void setArtistId(int artistId) {
-        this.artistId = artistId;
-    }
-*/
 
     public int getAlbumId() {
         return albumId;
@@ -34,5 +26,13 @@ public class ArtistStreams {
 
     public void setNumberStreams(int numberStreams) {
         this.numberStreams = numberStreams;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

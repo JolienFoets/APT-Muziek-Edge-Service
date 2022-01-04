@@ -13,20 +13,20 @@ public class AlbumArtist {
     public AlbumArtist(Artist artist, List<Album> albums) {
         //Info van BRITT
         setArtistName(artist.getName());
-        setArtistMbid(artist.getartistMBID());
+        setArtistMbid(artist.getmbid());
 
         artistStreams = new ArrayList<>();
         albums.forEach(album -> {
-            artistStreams.add(new ArtistStreams(album.getAlbumId(), album.getNumberStreams()));
+            artistStreams.add(new ArtistStreams(album.getAlbumId(), album.getNumberStreams(), album.getTitle()));
         });
         setArtistStreams(artistStreams);
     }
 
     public AlbumArtist(Artist artist, Album album) {
         setArtistName(artist.getName());
-        setArtistMbid(artist.getartistMBID());
+        setArtistMbid(artist.getmbid());
         artistStreams = new ArrayList<>();
-        artistStreams.add(new ArtistStreams(album.getAlbumId(), album.getNumberStreams()));
+        artistStreams.add(new ArtistStreams(album.getAlbumId(), album.getNumberStreams(), album.getTitle()));
         setArtistStreams(artistStreams);
     }
 
