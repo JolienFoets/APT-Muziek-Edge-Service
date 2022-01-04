@@ -38,6 +38,8 @@ Jolien Foets|APT-Artist-Service|[GitHub Link](https://github.com/JolienFoets/APT
 
 #### GET album by albumId (niet DB id) ####
 
+![Postman_get4_albumByAlbumId](https://github.com/JolienFoets/APT-Muziek-Edge-Service/blob/main/Screenshots/Postman_get4_albumByAlbumId.png)
+
 #### POST ####
 
 #### PUT ####
