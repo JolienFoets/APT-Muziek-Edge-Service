@@ -76,7 +76,7 @@ public class AlbumArtistController {
         return returnList;
     }
 
-    //Get2
+    //Get4
     @GetMapping("/streams/albums/{albumId}")
     public Album getAlbumByAlbumId(@PathVariable Integer albumId){
         Album returnAlbum = new Album();
@@ -188,22 +188,6 @@ public class AlbumArtistController {
                         Artist.class,artistId);
 
         return new AlbumArtist(artist, album);
-    }
-
-    //Post
-//    @PostMapping("/streams/artists")
-//    public Artist addStreamArtist(@RequestBody Artist artist){
-//        Artist newArtist =
-//                restTemplate.postForObject("http://" + artistServiceBaseUrl + "api/artists",
-//                        artist,Artist.class);
-//        return newArtist;
-//    }
-    @PostMapping("/streams/albums")
-    public Album addStreamAlbum(@RequestBody Album album){
-        Album newAlbum =
-                restTemplate.postForObject("http://" + albumServiceBaseUrl + "api/albums",
-                        album,Album.class);
-        return newAlbum;
     }
 
     //Put
