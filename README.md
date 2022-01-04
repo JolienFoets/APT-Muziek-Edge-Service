@@ -42,8 +42,23 @@ Jolien Foets|APT-Artist-Service|[GitHub Link](https://github.com/JolienFoets/APT
 
 #### POST ####
 
+![Postman_post](https://github.com/JolienFoets/APT-Muziek-Edge-Service/blob/main/Screenshots/Postman_post.png)
+
 #### PUT ####
 
+![Postman_put](https://github.com/JolienFoets/APT-Muziek-Edge-Service/blob/main/Screenshots/Postman_put.png)
+
 #### DELETE ####
+
+![Postman_delete1](https://github.com/JolienFoets/APT-Muziek-Edge-Service/blob/main/Screenshots/Postman_delete1.png)
+
+![Postman_delete2](https://github.com/JolienFoets/APT-Muziek-Edge-Service/blob/main/Screenshots/Postman_delete2.png)
+
+
+
+
+
+
+
 
 ## Implementatie SwaggerUI ##
