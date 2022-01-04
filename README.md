@@ -15,5 +15,5 @@ In de __APT-Album-Service__.\ kan je informatie vinden over de albums.
 
 Naam |Service|Github Repo
 -----|-------|-----------
-Britt Ooms|APT-Album-Service|[Repo Link](https://github.com/Britt93/APT-Album-Service)
-Jolien Foets|APT-Artist-Service|[Repo Link](https://github.com/JolienFoets/APT-Artist-Service)
+Britt Ooms|APT-Album-Service|[GitHub Link](https://github.com/Britt93/APT-Album-Service)
+Jolien Foets|APT-Artist-Service|[GitHub Link](https://github.com/JolienFoets/APT-Artist-Service)
