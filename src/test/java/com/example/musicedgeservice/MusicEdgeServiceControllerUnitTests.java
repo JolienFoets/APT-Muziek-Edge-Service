@@ -57,7 +57,7 @@ public class MusicEdgeServiceControllerUnitTests {
     private Album album3artist2 = new Album(23, 23, 2, "654987321","album3", 38);
 
     private List<Album> allAlbums = Arrays.asList(album1artist1, album2artist1, album3artist2);
-    private List<Album> allAlbumsByArtist1 = Arrays.asList(album1artist1, album2artist1);
+    //private List<Album> allAlbumsByArtist1 = Arrays.asList(album1artist1, album2artist1);
 
     private List<Album> allAlbumsForArtist1 = Arrays.asList(album1artist1, album2artist1);
     private List<Album> allAlbumsForArtist2 = Arrays.asList(album3artist2);
@@ -260,34 +260,38 @@ public class MusicEdgeServiceControllerUnitTests {
     //Get3
     @Test
     public void whenGetStreams_thenReturnAlbumsByArtistJson() throws Exception {
+        // get albums from artist 2
         mockServer.expect(ExpectedCount.once(),
-                requestTo(new URI("http://" + albumServiceBaseUrl + "/api/albums/artist/1")))
+                requestTo(new URI("http://" + albumServiceBaseUrl + "/api/albums/artist/2")))
                 .andExpect(method(HttpMethod.GET))
                 .andRespond(withStatus(HttpStatus.OK)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .body(mapper.writeValueAsString(allAlbumsByArtist1))
+                        .body(mapper.writeValueAsString(allAlbumsForArtist2))
                 );
 
+        //get artist 2
         mockServer.expect(ExpectedCount.once(),
-                requestTo(new URI("http://" + artistServiceBaseUrl + "/api/artists/1")))
+                requestTo(new URI("http://" + artistServiceBaseUrl + "/api/artists/2")))
                 .andExpect(method(HttpMethod.GET))
                 .andRespond(withStatus(HttpStatus.OK)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .body(mapper.writeValueAsString(artist1))
+                        .body(mapper.writeValueAsString(artist2))
                 );
 
-        mockMvc.perform(get("/streams/artists/{artistId}",1))
+        mockMvc.perform(get("/streams/artists/{artistId}",2))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$[0].name", is("artist1")))
-                .andExpect(jsonPath("$[0].artistStreams[0].albumId", is(21)))
-                .andExpect(jsonPath("$[0].artistStreams[0].numberStreams", is(45)))
-                .andExpect(jsonPath("$[1].name", is("artist1")))
-                .andExpect(jsonPath("$[1].artistStreams[0].albumId", is(22)))
-                .andExpect(jsonPath("$[1].artistStreams[0].numberStreams", is(26)));
+                .andExpect(jsonPath("$", hasSize(1)))
+                .andExpect(jsonPath("$[0].artistName", is("artist2")))
+                .andExpect(jsonPath("$[0].artistStreams[0].albumId", is(23)))
+                .andExpect(jsonPath("$[0].artistStreams[0].numberStreams", is(38)));
 
+        //private Artist artist1 = new Artist("1",1,"artist1", "123456789");
+        //private Artist artist2 = new Artist("2",2,"artist2", "987654321");
 
+        //private Album album1artist1 = new Album(21, 21, 1, "123654789","album1", 45);
+        //private Album album2artist1 = new Album(22, 22, 1, "9876546321","album2", 26);
+        //private Album album3artist2 = new Album(23, 23, 2, "654987321","album3", 38);
 
     }
 
@@ -310,6 +314,110 @@ public class MusicEdgeServiceControllerUnitTests {
                 .andExpect(jsonPath("$.artistId", is(1)))
                 .andExpect(jsonPath("$.numberStreams", is(45)));
 
+    }
+
+    //Post
+    @Test
+    public void whenAddStreams_thenReturnAlbumArtistReviewJson() throws Exception {
+
+        Album albumArtist1 = new Album(2, 500, "albumPost", 29);
+        //new Album(artistId, numberstreams, title, albumId)
+
+        // POST streams for Artist 2
+        mockServer.expect(ExpectedCount.once(),
+                requestTo(new URI("http://" + albumServiceBaseUrl + "/api/albums")))
+                .andExpect(method(HttpMethod.POST))
+                .andRespond(withStatus(HttpStatus.OK)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(mapper.writeValueAsString(albumArtist1))
+                );
+
+        // GET Artist 2 info
+        mockServer.expect(ExpectedCount.once(),
+                requestTo(new URI("http://" + artistServiceBaseUrl + "/api/artists/2")))
+                .andExpect(method(HttpMethod.GET))
+                .andRespond(withStatus(HttpStatus.OK)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(mapper.writeValueAsString(artist2))
+                );
+
+        mockMvc.perform(post("/streams/albums")
+                //.param("artistId", albumArtist1.getArtistId())
+                .param("artistId", String.valueOf(albumArtist1.getArtistId()))
+                .param("numberstreams", String.valueOf(albumArtist1.getNumberStreams()))
+                .param("title", albumArtist1.getTitle())
+                .param("albumId", String.valueOf(albumArtist1.getAlbumId()))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.artistName", is("artist2")))
+                .andExpect(jsonPath("$.artistStreams[0].albumId", is(29)))
+                .andExpect(jsonPath("$.artistStreams[0].title", is("albumPost")))
+                .andExpect(jsonPath("$.artistStreams[0].numberStreams", is(500)));
+    }
+
+    //Put
+    @Test
+    public void whenUpdateStreams_thenReturnAlbumArtistJson() throws Exception {
+
+        ObjectMapper mapper = new ObjectMapper();
+        Album updatedAlbum1Artist1 = new Album(21, 21, 1, "123654789","album1PUT", 5);
+        //private Album album1artist1 = new Album(21, 21, 1, "123654789","album1", 45);
+
+        // GET review from User 1 of Book 1
+        mockServer.expect(ExpectedCount.once(),
+                requestTo(new URI("http://" + albumServiceBaseUrl + "/api/albums/21")))
+                .andExpect(method(HttpMethod.GET))
+                .andRespond(withStatus(HttpStatus.OK)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(mapper.writeValueAsString(album1artist1))
+                );
+
+        // PUT review from User 1 for Book 1 with new score 5
+        mockServer.expect(ExpectedCount.once(),
+                requestTo(new URI("http://" + albumServiceBaseUrl + "/api/albums/21")))
+                .andExpect(method(HttpMethod.PUT))
+                .andRespond(withStatus(HttpStatus.OK)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(mapper.writeValueAsString(updatedAlbum1Artist1))
+                );
+
+        /*mockServer.expect(ExpectedCount.once(),
+                requestTo(new URI("http://" + albumServiceBaseUrl + "/api/albums/21")))
+                .andExpect(method(HttpMethod.GET))
+                .andRespond(withStatus(HttpStatus.OK)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(mapper.writeValueAsString(album1artist1))
+                );*/
+
+
+        /*mockMvc.perform(put("/streams/albums/{albumId}",21)
+
+                .content(mapper.writeValueAsString(updatedAlbum1Artist1))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.albumId", is(21)))
+                .andExpect(jsonPath("$.title", is("album1PUT")))
+                .andExpect(jsonPath("$.numberStreams", is(5)))
+                .andExpect(jsonPath("$.artistId", is(1)));*/
+
+    }
+
+    //Delete
+    @Test
+    public void whenDeleteStreams_thenReturnStatusOk() throws Exception {
+
+        // DELETE review from User 999 of Book with ISBN9 as ISBN
+        mockServer.expect(ExpectedCount.once(),
+                requestTo(new URI("http://" + albumServiceBaseUrl + "/api/albums/2")))
+                .andExpect(method(HttpMethod.DELETE))
+                .andRespond(withStatus(HttpStatus.OK)
+                );
+
+        mockMvc.perform(delete("/streams/albums/{albumId}", 2))
+                .andExpect(status().isOk());
     }
 
 
