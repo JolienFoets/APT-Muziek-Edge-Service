@@ -18,6 +18,10 @@ Naam |Service|Github Repo
 Britt Ooms|APT-Album-Service|[GitHub Link](https://github.com/Britt93/APT-Album-Service)
 Jolien Foets|APT-Artist-Service|[GitHub Link](https://github.com/JolienFoets/APT-Artist-Service)
 
+Naam |Service|Github Repo
+-----|-------|-----------
+Britt Ooms & Jolien Foets|ATP-Muziek-k8s|[GitHub Link](https://github.com/JolienFoets/ATP-Muziek-k8s)
+
 ## Diagram microservices architectuur ##
 
 ![Diagram_microservices_architectuur](https://github.com/JolienFoets/APT-Muziek-Edge-Service/blob/main/Screenshots/Diagram_microservices_architectuur.png)
