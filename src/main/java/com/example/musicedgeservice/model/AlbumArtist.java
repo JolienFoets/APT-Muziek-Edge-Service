@@ -11,7 +11,6 @@ public class AlbumArtist {
     private List<ArtistStreams> artistStreams;
 
     public AlbumArtist(Artist artist, List<Album> albums) {
-        //Info van BRITT
         setArtistName(artist.getName());
         setArtistMbid(artist.getmbid());
 

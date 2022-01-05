@@ -33,7 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class MusicEdgeServiceControllerUnitTests {
+ class MusicEdgeServiceControllerUnitTests {
     @Value("${albumservice.baseurl}")
     private String albumServiceBaseUrl;
 
@@ -209,7 +209,7 @@ public class MusicEdgeServiceControllerUnitTests {
 
     //Get1
     @Test
-    public void whenGetStreams_thenReturnArtistsJson() throws Exception {
+    void whenGetStreams_thenReturnArtistsJson() throws Exception {
         mockServer.expect(ExpectedCount.once(),
                 requestTo(new URI("http://" + artistServiceBaseUrl + "/api/artists")))
                 .andExpect(method(HttpMethod.GET))
@@ -230,7 +230,7 @@ public class MusicEdgeServiceControllerUnitTests {
 
     //Get2
     @Test
-    public void whenGetStreams_thenReturnAlbumsJson() throws Exception {
+    void whenGetStreams_thenReturnAlbumsJson() throws Exception {
         mockServer.expect(ExpectedCount.once(),
                 requestTo(new URI("http://" + albumServiceBaseUrl + "/api/albums")))
                 .andExpect(method(HttpMethod.GET))
@@ -259,7 +259,7 @@ public class MusicEdgeServiceControllerUnitTests {
 
     //Get3
     @Test
-    public void whenGetStreams_thenReturnAlbumsByArtistJson() throws Exception {
+    void whenGetStreams_thenReturnAlbumsByArtistJson() throws Exception {
         // get albums from artist 2
         mockServer.expect(ExpectedCount.once(),
                 requestTo(new URI("http://" + albumServiceBaseUrl + "/api/albums/artist/2")))
@@ -297,7 +297,7 @@ public class MusicEdgeServiceControllerUnitTests {
 
     //Get4
     @Test
-    public void whenGetStreams_thenReturnAlbumByAlbumIdJson() throws Exception {
+    void whenGetStreams_thenReturnAlbumByAlbumIdJson() throws Exception {
         mockServer.expect(ExpectedCount.once(),
                 requestTo(new URI("http://" + albumServiceBaseUrl + "/api/albums/1")))
                 .andExpect(method(HttpMethod.GET))
@@ -318,7 +318,7 @@ public class MusicEdgeServiceControllerUnitTests {
 
     //Post
     @Test
-    public void whenAddStreams_thenReturnAlbumArtistReviewJson() throws Exception {
+    void whenAddStreams_thenReturnAlbumArtistReviewJson() throws Exception {
 
         Album albumArtist1 = new Album(2, 500, "albumPost", 29);
         //new Album(artistId, numberstreams, title, albumId)
@@ -358,7 +358,7 @@ public class MusicEdgeServiceControllerUnitTests {
 
     //Put
     @Test
-    public void whenUpdateStreams_thenReturnAlbumArtistJson() throws Exception {
+    void whenUpdateStreams_thenReturnAlbumArtistJson() throws Exception {
 
         ObjectMapper mapper = new ObjectMapper();
         Album updatedAlbum1Artist1 = new Album(21, 21, 1, "123654789","album1PUT", 5);
@@ -382,15 +382,6 @@ public class MusicEdgeServiceControllerUnitTests {
                         .body(mapper.writeValueAsString(updatedAlbum1Artist1))
                 );
 
-        /*mockServer.expect(ExpectedCount.once(),
-                requestTo(new URI("http://" + albumServiceBaseUrl + "/api/albums/21")))
-                .andExpect(method(HttpMethod.GET))
-                .andRespond(withStatus(HttpStatus.OK)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .body(mapper.writeValueAsString(album1artist1))
-                );*/
-
-
         /*mockMvc.perform(put("/streams/albums/{albumId}",21)
 
                 .content(mapper.writeValueAsString(updatedAlbum1Artist1))
@@ -407,7 +398,7 @@ public class MusicEdgeServiceControllerUnitTests {
 
     //Delete
     @Test
-    public void whenDeleteStreams_thenReturnStatusOk() throws Exception {
+    void whenDeleteStreams_thenReturnStatusOk() throws Exception {
 
         // DELETE review from User 999 of Book with ISBN9 as ISBN
         mockServer.expect(ExpectedCount.once(),

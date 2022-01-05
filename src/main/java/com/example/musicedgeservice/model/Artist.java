@@ -5,7 +5,6 @@ public class Artist {
     private int artistId;
     private String name;
     private String mbid;
-    //private int numberStreams;
 
     public Artist() {
     }
@@ -16,14 +15,6 @@ public class Artist {
         this.name = name;
         this.mbid = mbid;
     }
-
-    /*public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }*/
 
     public int getArtistId() {
         return artistId;
@@ -49,12 +40,4 @@ public class Artist {
         this.mbid = mbid;
     }
 
-    /*public int getNumberStreams() {
-        return numberStreams;
-    }
-
-    public void setNumberStreams(int numberStreams) {
-        this.numberStreams = numberStreams;
-    }
-    */
 }
